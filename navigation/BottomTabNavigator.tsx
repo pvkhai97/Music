@@ -1,11 +1,12 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Entypo, EvilIcons, FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
+import { AlbumScreen } from '../screens/AlbumScreen';
+import HomeScreen from '../screens/HomeScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
@@ -19,19 +20,35 @@ export default function BottomTabNavigator() {
       initialRouteName="TabOne"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
+        name="Home"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <Entypo name='home' size={30} style={{ marginBottom: -3 }} color={color} />,
         }}
       />
+      <BottomTab.Screen
+        name="Search"
+        component={TabTwoNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <EvilIcons name="search" size={30} style={{ marginBottom: -3 }} color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Music"
+        component={TabTwoNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons size={30} name="Library-music-outline" style={{ marginBottom: -3 }} color={color} />,
+        }}
+      />
+
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={30} name="spotify" style={{ marginBottom: -3 }} color={color} />,
         }}
       />
+
     </BottomTab.Navigator>
   );
 }
@@ -50,9 +67,15 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        name="Home"
+        component={HomeScreen}
+        options={{ headerTitle: 'This Home' }}
+      />
+
+      <TabOneStack.Screen
+        name="AlbumScreen"
+        component={AlbumScreen}
+        options={{ headerTitle: 'Album' }}
       />
     </TabOneStack.Navigator>
   );
@@ -64,7 +87,7 @@ function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="TabTwoScreen"
+        name="Search"
         component={TabTwoScreen}
         options={{ headerTitle: 'Tab Two Title' }}
       />
